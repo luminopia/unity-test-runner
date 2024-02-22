@@ -99,7 +99,9 @@ if [ "$PACKAGE_MODE" = "true" ]; then
     jq \
     --arg packageName "$PACKAGE_NAME" \
     --arg projectPath "$UNITY_PROJECT_PATH" \
-    '.dependencies += {"com.unity.testtools.codecoverage": "1.1.1"} | .dependencies += {"\($packageName)": "file:\($projectPath)"} | . += {testables: ["\($packageName)"]}' \
+    --arg scopedRegistryUrl "$SCOPED_REGISTRY_URL" \
+    --argjson registryScopes "$REGISTRY_SCOPES" \
+    '.dependencies += {"com.unity.testtools.codecoverage": "1.1.1"} | .dependencies += {"\($packageName)": "file:\($projectPath)"} | . += {testables: ["\($packageName)"]} | .scopedRegistries += [{ "url": $scopedRegistryUrl, "scopes": $registryScopes }]' \
     > "$PACKAGE_MANIFEST_PATH"
 
   UNITY_PROJECT_PATH="$TEMP_PROJECT_PATH"
