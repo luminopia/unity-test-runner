@@ -104,6 +104,7 @@ class Input {
     const scopedRegistryUrl = getInput('scopedRegistryUrl') || '';
     const rawScopes = getInput('registryScopes') || '';
     let registryScopes: string[] = [];
+    const privateRegistryToken = getInput('privateRegistryToken') || '';
     const chownFilesTo = getInput('chownFilesTo') || '';
     const dockerCpuLimit = getInput('dockerCpuLimit') || os.cpus().length.toString();
     const bytesInMegabyte = 1024 * 1024;
@@ -234,6 +235,7 @@ class Input {
       packageName,
       scopedRegistryUrl,
       registryScopes,
+      privateRegistryToken,
       chownFilesTo,
       dockerCpuLimit,
       dockerMemoryLimit,

@@ -98,7 +98,7 @@ function run() {
         try {
             model_1.Action.checkCompatibility();
             const { workspace, actionFolder } = model_1.Action;
-            const { editorVersion, customImage, projectPath, customParameters, testMode, coverageOptions, artifactsPath, useHostNetwork, sshAgent, sshPublicKeysDirectoryPath, gitPrivateToken, githubToken, checkName, packageMode, packageName, scopedRegistryUrl, registryScopes, chownFilesTo, dockerCpuLimit, dockerMemoryLimit, dockerIsolationMode, unityLicensingServer, runAsHostUser, containerRegistryRepository, containerRegistryImageVersion, unitySerial, } = model_1.Input.getFromUser();
+            const { editorVersion, customImage, projectPath, customParameters, testMode, coverageOptions, artifactsPath, useHostNetwork, sshAgent, sshPublicKeysDirectoryPath, gitPrivateToken, githubToken, checkName, packageMode, packageName, scopedRegistryUrl, registryScopes, privateRegistryToken, chownFilesTo, dockerCpuLimit, dockerMemoryLimit, dockerIsolationMode, unityLicensingServer, runAsHostUser, containerRegistryRepository, containerRegistryImageVersion, unitySerial, } = model_1.Input.getFromUser();
             const baseImage = new model_1.ImageTag({
                 editorVersion,
                 customImage,
@@ -122,6 +122,7 @@ function run() {
                     packageName,
                     scopedRegistryUrl,
                     registryScopes,
+                    privateRegistryToken,
                     gitPrivateToken,
                     githubToken,
                     chownFilesTo,
@@ -402,6 +403,7 @@ class ImageEnvironmentFactory {
             { name: 'PACKAGE_NAME', value: parameters.packageName },
             { name: 'SCOPED_REGISTRY_URL', value: parameters.scopedRegistryUrl },
             { name: 'REGISTRY_SCOPES', value: parameters.registryScopes },
+            { name: 'PRIVATE_REGISTRY_TOKEN', value: parameters.privateRegistryToken },
             { name: 'GIT_PRIVATE_TOKEN', value: parameters.gitPrivateToken },
             { name: 'VERSION', value: parameters.buildVersion },
             { name: 'CUSTOM_PARAMETERS', value: parameters.customParameters },
@@ -718,6 +720,7 @@ class Input {
         const scopedRegistryUrl = (0, core_1.getInput)('scopedRegistryUrl') || '';
         const rawScopes = (0, core_1.getInput)('registryScopes') || '';
         let registryScopes = [];
+        const privateRegistryToken = (0, core_1.getInput)('privateRegistryToken') || '';
         const chownFilesTo = (0, core_1.getInput)('chownFilesTo') || '';
         const dockerCpuLimit = (0, core_1.getInput)('dockerCpuLimit') || os_1.default.cpus().length.toString();
         const bytesInMegabyte = 1024 * 1024;
@@ -820,6 +823,7 @@ class Input {
             packageName,
             scopedRegistryUrl,
             registryScopes,
+            privateRegistryToken,
             chownFilesTo,
             dockerCpuLimit,
             dockerMemoryLimit,
