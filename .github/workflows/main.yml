@@ -55,7 +55,7 @@ jobs:
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+dependencyexample.testpackage.*,-*Tests*'
           packageMode: true
           scopedRegistryUrl: https://package.openupm.com/
-          registryScopes: 'com.cysharp.unitask'
+          registryScopes: 'com.cysharp.unitask, com.cysharp'
           # Test implicit artifactsPath, by not setting it
 
       # Upload artifacts
