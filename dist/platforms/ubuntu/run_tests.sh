@@ -109,6 +109,8 @@ if [ "$PACKAGE_MODE" = "true" ]; then
 
   UNITY_PROJECT_PATH="$TEMP_PROJECT_PATH"
 
+  cat "$PACKAGE_MANIFEST_PATH"
+
   if [ -n "$PRIVATE_REGISTRY_TOKEN" ]; then
     echo "Private registry token detected, creating .upmconfig.toml"
 
