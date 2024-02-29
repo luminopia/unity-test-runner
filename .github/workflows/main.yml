@@ -10,7 +10,6 @@ env:
   UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
   UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
   UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-  UPM_REGISTRY_TOKEN: ${{ secrets.UPM_REGISTRY_TOKEN }}
 
 jobs:
   tests:
@@ -27,8 +26,8 @@ jobs:
       - run: yarn build || { echo "build command should always succeed" ; exit 61; }
   #      - run: yarn build --quiet && git diff --quiet action || { echo "ERROR - index.js is different from repository version. Forgot to run `yarn build`?" ; exit 62; }
 
-  testPackageRunnerWithPrivateScopeRegistry:
-    name: Test package mode in all modes with Scoped Registry 🔑📦✨
+  testPackageRunnerWithScopeRegistry:
+    name: Test package mode in all modes with Scoped Registry 📦✨
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -55,8 +54,8 @@ jobs:
           testMode: all
           coverageOptions: 'generateAdditionalMetrics;generateHtmlReport;generateBadgeReport;assemblyFilters:+dependencyexample.testpackage.*,-*Tests*'
           packageMode: true
-          scopedRegistryUrl: ${{ secrets.UPM_REGISTRY_URL }}
-          registryScopes: 'com.luminopia'
+          scopedRegistryUrl: https://package.openupm.com/
+          registryScopes: 'com.cysharp.unitask'
           # Test implicit artifactsPath, by not setting it
 
       # Upload artifacts
